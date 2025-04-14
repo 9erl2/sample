@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>반복문!!!</title>
+    <style>
+        body { margin:0px; }
+        .box {
+            position:absolute;
+            background-color:rgba(255, 162, 0, 0.1);
+            border-radius:50%;
+        }
+    </style>
+</head>
+<body>
+<script>
+let texts = "";
+const numFlowers = 10;
+const petalsPerFlower = 6;
+for (let f = 0; f < numFlowers; f++) {
+    let centerX = Math.random() * 80 + 10; 
+    let centerY = Math.random() * 80 + 10; 
+
+    for (let p = 0; p < petalsPerFlower; p++) {
+        let angle = (Math.PI * 2 / petalsPerFlower) * p;
+        let radius = 10;
+        let x = centerX + Math.cos(angle) * radius;
+        let y = centerY + Math.sin(angle) * radius;
+        let w = 10;
+        let h = 10;
+        texts += `<div class='box' 
+                style='left:${x}vw; top:${y}vh; 
+                width:${w}vw; height:${h}vh;
+                '></div>`;
+    }
+    texts += `<div class='box' 
+            style='left:${centerX}vw; top:${centerY}vh; 
+            width:12vw; height:12vh;
+            background-color:rgba(255, 100, 0, 0.2);
+            '></div>`;
+}
+document.write(texts);
+let mousex = 20, mousey = 20;
+document.addEventListener("mousemove", (e)=>{
+    mousex = e.clientX;
+    mousey = e.clientY;
+});
+function moveAndRotateWithMouse () {
+    let boxes = document.querySelectorAll(".box");
+    let i = 1;
+    boxes.forEach((_box) => {
+        let offsetX = (mousex - window.innerWidth / 2) * 0.005 * i;
+        let offsetY = (mousey - window.innerHeight / 2) * 0.005 * i;
+        let deg = i * (mousex * 0.02);
+        _box.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${deg}deg)`;
+        i++;
+    });
+}
+setInterval(moveAndRotateWithMouse, 20);
+/* for (let i = 0; i < 100; i++) {
+    let x = Math.random()* 180;
+    let y = Math.random()* 180;
+    let w = 90 - i * 1.2;
+    let h = 90 - i * 1.2;
+    let deg = i * 2.75;
+    texts += `<div class='box' 
+            style='left:${x}vw; top:${y}vh; 
+            width:${w}vw; height:${h}vh;
+            transform:rotate(${deg}deg);
+            '></div>`;
+}
+document.write(texts);
+
+let mousex = 20, mousey = 20;
+document.addEventListener("mousemove", (e)=>{
+    mousex = e.clientX;
+    mousey = e.clientY;
+});
+function moveAndRotateWithMouse () {
+    let boxes = document.querySelectorAll(".box");
+    let i = 1;
+    boxes.forEach((_box) => {
+        let offsetX = (mousex - window.innerWidth / 2) * 0.010 * i;
+        let offsetY = (mousey - window.innerHeight / 2) * 0.010 * i;
+        let deg = i * (mousex * 0.05);
+        _box.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${deg}deg)`;
+        i++;
+    });
+}
+setInterval(moveAndRotateWithMouse, 20);
+*/
+</script>
+</body>
+</html>
